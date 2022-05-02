@@ -1,4 +1,6 @@
-
+//https://ansohxxn.github.io/algorithm/permutation/
+//https://gorakgarak.tistory.com/522
+//참고
 #include <string>
 #include <vector>
 #include <cstring>
