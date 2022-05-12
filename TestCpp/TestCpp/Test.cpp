@@ -6,29 +6,49 @@
 #pragma warning (disable : 4996)
 using namespace std;
 
-
-int solution(vector<int> nums)
+void swap(int& a, int& b)
 {
-    int answer = 0;
+    int temp = a;
+    a = b;
+    b = temp;
+}
 
-    int count = nums.size() * 0.5f;
+void get(vector<int>b, int depth, int n, int m, vector<vector<int>> &temp)
+{
 
-    sort(nums.begin(), nums.end());
-    nums.erase(unique(nums.begin(), nums.end()), nums.end());
+    if (m == 0)
+    {
+        temp.push_back(b);
+        return;
 
-    if (count <= nums.size())
-        answer = count;
-    else
-        answer = nums.size();
+    }
 
-    return answer;
+    for (size_t i = 0; i < m; i++)
+    {
+        swap(b[n], b[depth + i]);
+
+        get(b, n + 1, depth + 1, m - 1, temp);
+
+        swap(b[n], b[depth + i]);
+    }
+}
+
+int solution(vector<int>b)
+{
+
+    vector<vector<int>> temp;
+
+    get(b, 0, 0, b.size(), temp);
+
+
+    return 3;
 }
 int main()
 {
 
 
     //vector<vector<int>>a{ {0, 0, 0, 0, 0},{0, 0, 1, 0, 3},{0, 2, 5, 0, 1},{4, 2, 4, 4, 2},{3, 5, 1, 3, 1} };
-    vector<int>b{ 3, 1, 2, 3 };
+    vector<int>b{ 1, 2, 3,4,5,6 };
 
     int ss = solution(b );
 
