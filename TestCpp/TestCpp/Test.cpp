@@ -33,7 +33,8 @@ int solution(vector<vector<int>> board, vector<int> moves) {
                 {
                     if (select[select.size() - 1] == index2)
                     {
-                        select.erase(select.end() - 1);
+                        //select.erase(select.end() - 1);
+                        select.pop_back();
                         answer+=2;
                     }
                     else 
