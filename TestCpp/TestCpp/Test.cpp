@@ -13,24 +13,24 @@ void swap(int& a, int& b)
     b = temp;
 }
 
-void get(vector<int>b, int depth, int n, int m, vector<vector<int>> &temp)
+void get(vector<int>a, vector<int>b, int n, int m, vector<vector<int>>& temp)
 {
-
     if (m == 0)
     {
-        temp.push_back(b);
+        temp.push_back(a);
         return;
-
     }
 
-    for (size_t i = 0; i < m; i++)
+    if (n >= b.size())
     {
-        swap(b[n], b[depth + i]);
-
-        get(b, n + 1, depth + 1, m - 1, temp);
-
-        swap(b[n], b[depth + i]);
+        return;
     }
+
+    a.push_back(b[n]);
+    get(a, b, n + 1, m - 1,temp);
+
+    a.pop_back();
+    get(a, b, n + 1, m, temp);
 }
 
 int solution(vector<int>b)
@@ -38,17 +38,17 @@ int solution(vector<int>b)
 
     vector<vector<int>> temp;
 
-    get(b, 0, 0, b.size(), temp);
+    vector<int> a;
+    get(a, b, 0, 4, temp);
+    
+       
+   
 
-
-    return 3;
+    return temp.size();
 }
 int main()
 {
-
-
-    //vector<vector<int>>a{ {0, 0, 0, 0, 0},{0, 0, 1, 0, 3},{0, 2, 5, 0, 1},{4, 2, 4, 4, 2},{3, 5, 1, 3, 1} };
-    vector<int>b{ 1, 2, 3,4,5,6 };
+    vector<int>b{ 1, 2, 3,5,6,7 };
 
     int ss = solution(b );
 
