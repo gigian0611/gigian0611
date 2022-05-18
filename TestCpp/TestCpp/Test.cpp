@@ -22,10 +22,29 @@ string solution(vector<string> participant, vector<string> completion) {
 }
 int main()
 {
-    vector<string> a{ "marina", "josipa", "nikola", "vinko", "filipa" };
-    vector<string> b{ "josipa", "filipa", "marina", "nikola" };
+    //vector<string> a{ "marina", "josipa", "nikola", "vinko", "filipa" };
+    //vector<string> b{ "josipa", "filipa", "marina", "nikola" };
 
-    string ss = solution(a,b);
+    //string ss = solution(a,b);
+
+
+    int r, g, b, src, dst, res;
+    float dstR, dstG, dstB, srcA, srcR, srcG, srcB;
+
+    srcA = 128 / 255.0f;
+    srcR = 199;
+    srcG = 147;
+    srcB = 72;
+
+    dstR = 132;
+    dstG = 199;
+    dstB = 68;
+
+    r = (srcR - dstR) * srcA + dstR;
+    g = (srcG - dstG) * srcA + dstG;
+    b = (srcB - dstB) * srcA + dstB;
+
+    res = r | g | b;
 
     return 0;
 }
