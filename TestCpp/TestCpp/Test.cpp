@@ -7,46 +7,62 @@
 #pragma warning (disable : 4996)
 using namespace std;
 
-string solution(vector<string> participant, vector<string> completion) {
-    map<string, int> a;
-    string res, temp;
-    int length = participant.size();
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> answer;
 
-    for (int i = 0; i < length; i++)
+    int length = stages.size();
+    vector<int> stop;
+    vector<int> up;
+    map<int, float> temp;
+
+    for (size_t i = 1; i <= N; i++)
     {
-        temp = participant[i];
-        if (!a.count(temp))
-            a.insert({ temp, 1 });
-        else
-            a[temp]++;
-
-    }
-
-    length = completion.size();
-    for (int i = 0; i < length; i++)
-    {
-        temp = completion[i];
-        a[completion[i]]--;
-    }
-
-    for (auto i : a)
-    {
-        if (i.second == 1)
+        for (size_t j = 0; j < length; j++)
         {
-            res = i.first;
-            break;
+            int item = stages[j];
+            if (i >= item && i - 1 < item)
+                stop.push_back(j);
+            else if (i - 1 < item)
+                up.push_back(j);
         }
+
+        int stop_size = stop.size();
+        int up_size = up.size();
+        float fail = float(stop_size / float(up_size + stop_size));
+
+        temp.insert({i, fail});
+    
+        stop.clear();
+        up.clear();
     }
 
-            
-    return res;
+    vector<pair<int, float>> vec(temp.begin(), temp.end());
+
+    sort(vec.begin(), vec.end(), [](const pair<int, float>& a, const pair<int, float>& b)
+    {
+        if (a.second > b.second)
+            return true;
+        else if (a.second == b.second)
+        {
+            if (a.first > b.first)
+                return false;
+            else
+                return true;
+        }
+        else
+            return false;
+    });
+
+    for (auto i : vec)
+        answer.push_back(i.first);
+    return answer;
 }
 int main()
 {
-    vector<string> a{ "mislav", "stanko", "mislav", "ana" };
-    vector<string> b{ "stanko", "ana", "mislav" };
+    vector<int> a{ 2, 1, 2, 6, 2, 4, 3, 3 };
+    //vector<string> b{ "stanko", "ana", "mislav" };
 
-    string ss = solution(a,b);
+    vector<int> ss = solution(5,a);
 
 
     return 0;
